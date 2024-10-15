@@ -10,11 +10,42 @@ function App() {
   const [repos, setRepos] = useState([]);
   const [currentRepo, setCurrentRepo] = useState("");
 
-  async function handleSearshRepos() {
-    const { data } = await api.get(`repos/${currentRepo}`);
+  async function findRepos() {
+    api
+      .get(`repos/${currentRepo}`)
+      .then(result => result.data)
+      .then(newRepo => {
+        if (!repos.some(repo => repo.id === newRepo.id))
+          setRepos([...repos, newRepo]);
+      })
+      .catch(err => console.log("repositorio não encontrado"));
+  }
 
-    if (data.id) {
-      if (!repos.some(repo => repo.id === data.id)) setRepos([...repos, data]);
+  async function findUser() {
+    api
+      .get(`users/${currentRepo}/repos`)
+      .then(result => result.data)
+      .then(userRepos => {
+        return userRepos.filter(
+          userRepo => !repos.find(repo => repo.id === userRepo.id)
+        );
+      })
+      .then(newRepos => setRepos([...repos, ...newRepos]))
+      .catch(err => console.log("usuario não encontrado"));
+
+    // repos.forEach(repo => {
+    //   userRepos = userRepos.filter(rep => rep.id !== repo.id);
+    // });
+    // setRepos({ ...repos, ...userRepos });
+  }
+
+  async function handleSearshRepos(tipoDeBusca) {
+    if (currentRepo === "") return;
+
+    if (tipoDeBusca === "repos") {
+      findRepos();
+    } else {
+      findUser();
     }
   }
 

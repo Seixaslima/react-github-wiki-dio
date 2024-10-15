@@ -3,6 +3,14 @@ import { ButtonBuscarContainer } from "./styles";
 
 export default function ButtonBuscar({ onClick }) {
   const [tipoBusca, setTipoBusca] = useState(true);
+  function handleOnClick() {
+    if (tipoBusca) {
+      onClick("repos");
+    } else {
+      onClick("users");
+    }
+  }
+
   return (
     <ButtonBuscarContainer>
       <div className="radioGroup">
@@ -29,7 +37,12 @@ export default function ButtonBuscar({ onClick }) {
         </label>
       </div>
 
-      <button type="submit">Buscar</button>
+      <button
+        type="submit"
+        onClick={handleOnClick}
+      >
+        Buscar
+      </button>
     </ButtonBuscarContainer>
   );
 }
