@@ -6,7 +6,7 @@ export const InputContainer = styled.div`
 
   height: 62px;
   width: 80%;
-  margin: 20px 0;
+  margin-top: 20px;
 
   input {
     background: transparent;
