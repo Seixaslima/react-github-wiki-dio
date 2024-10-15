@@ -1,7 +1,10 @@
 import React from "react";
 import { ItemContainer } from "./styles";
 
-export default function ItemRepo({ repo }) {
+export default function ItemRepo({ repo, handleRemoveRepo }) {
+  function handleRemove() {
+    handleRemoveRepo(repo.id);
+  }
   return (
     <ItemContainer>
       <h3>{repo.name}</h3>
@@ -13,12 +16,14 @@ export default function ItemRepo({ repo }) {
       >
         Ver repositorio
       </a>
-      <a
+
+      <button
         href="#"
         className="remover"
+        onClick={handleRemove}
       >
         Remover
-      </a>
+      </button>
       <hr />
     </ItemContainer>
   );

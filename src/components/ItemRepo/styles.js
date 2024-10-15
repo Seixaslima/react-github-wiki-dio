@@ -14,12 +14,18 @@ export const ItemContainer = styled.div`
   }
 
   a {
-    font-size: 12px;
+    font-size: 16px;
     text-decoration: none;
+    color: #00ff00;
+    margin-right: 20px;
   }
 
-  a.remover {
+  button.remover {
     color: #ff0000;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: normal;
   }
 
   hr {

@@ -18,6 +18,11 @@ function App() {
     }
   }
 
+  function handleRemoveRepo(id) {
+    const reposFiltrados = repos.filter(repo => repo.id !== id);
+    setRepos(reposFiltrados);
+  }
+
   return (
     <Container>
       <img
@@ -35,6 +40,7 @@ function App() {
         <ItemRepo
           key={repo.id}
           repo={repo}
+          handleRemoveRepo={handleRemoveRepo}
         />
       ))}
     </Container>
