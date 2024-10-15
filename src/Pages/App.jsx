@@ -4,9 +4,19 @@ import Input from "../components/Input";
 import ItemRepo from "../components/ItemRepo";
 import { useState } from "react";
 import ButtonBuscar from "../components/ButtonBuscar";
+import { api } from "../services/api";
 
 function App() {
   const [repos, setRepos] = useState([]);
+  const [currentRepo, setCurrentRepo] = useState("");
+
+  async function handleSearshRepos() {
+    const { data } = await api.get(`repos/${currentRepo}`);
+
+    if (data.id) {
+      if (!repos.some(repo => repo.id === data.id)) setRepos([...repos, data]);
+    }
+  }
 
   return (
     <Container>
@@ -16,9 +26,17 @@ function App() {
         width={72}
         height={72}
       />
-      <Input />
-      <ButtonBuscar />
-      <ItemRepo />
+      <Input
+        value={currentRepo}
+        onChange={e => setCurrentRepo(e.target.value)}
+      />
+      <ButtonBuscar onClick={handleSearshRepos} />
+      {repos.map(repo => (
+        <ItemRepo
+          key={repo.id}
+          repo={repo}
+        />
+      ))}
     </Container>
   );
 }

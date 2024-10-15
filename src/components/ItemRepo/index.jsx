@@ -1,12 +1,18 @@
 import React from "react";
 import { ItemContainer } from "./styles";
 
-export default function ItemRepo() {
+export default function ItemRepo({ repo }) {
   return (
     <ItemContainer>
-      <h3>teste</h3>
-      <p>/seixaslima/teste</p>
-      <a href="/seixaslima/teste">Ver repositorio</a>
+      <h3>{repo.name}</h3>
+      <p> {repo.full_name} </p>
+      <a
+        href={repo.html_url}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Ver repositorio
+      </a>
       <a
         href="#"
         className="remover"
